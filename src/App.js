@@ -88,7 +88,8 @@ const App = () => {
             <ProgressSection />
             {/* Pass the fetched data down to QuestionList */}
             <QuestionList 
-              questions={questions} 
+              questions={questions}
+              setQuestions={setQuestions} 
               loading={loading} 
               error={error} 
             />
