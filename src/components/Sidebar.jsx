@@ -19,7 +19,7 @@ const Sidebar = ({
     }
   };
 
-  const topicsList = ['Arrays', 'Strings', 'Trees', 'Linked Lists', 'Dynamic Programming', 'Graphs', 'Stack & Queue', 'Sorting'];
+  const topicsList = ['Array', 'String', 'Tree', 'Linked List', 'Dynamic Programming', 'Graph', 'Stack & Queue', 'Sorting'];
 
   return (
     <aside className="sidebar">

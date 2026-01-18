@@ -35,7 +35,6 @@ export default function Visualizer({ steps = [] }) {
         )}
       </div>
 
-      {/* Controls and Steps list remain the same... */}
        <div className="visualization-controls">
         <div className="step-indicator">
           <strong>Step {current + 1}</strong> of {steps.length}
