@@ -4,7 +4,6 @@ const months = ['January', 'February', 'March', 'April', 'May', 'June',
                 'July', 'August', 'September', 'October', 'November', 'December'];
 
 const ActivityCalendar = () => {
-  // Default to January 2026 as per your endpoint example
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0); 
   const [currentYear, setCurrentYear] = useState(2026);
   const [activityData, setActivityData] = useState({});
@@ -109,7 +108,6 @@ const ActivityCalendar = () => {
     }
 
     // Fill remaining cells for visual consistency (5 rows * 7 cols = 35 cells minimum)
-    // Note: Some months span 6 weeks, so we might need 42 cells. 
     // This logic ensures at least the grid is square-ish.
     const totalCells = firstDay + daysInMonth;
     const remainingCells = (totalCells > 35 ? 42 : 35) - totalCells; 

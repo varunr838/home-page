@@ -9,7 +9,6 @@ const ProgressSection = () => {
   });
   const [loading, setLoading] = useState(true);
 
-  // Set your target goal here (e.g., total questions available in DB or a personal goal)
   const TOTAL_GOAL = 100;
 
   useEffect(() => {

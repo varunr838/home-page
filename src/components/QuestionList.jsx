@@ -1,11 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const QuestionList = ({ questions, setQuestions, loading, error }) => { // Accept setQuestions to update state
-  
+const QuestionList = ({ questions, setQuestions, loading, error }) => { 
+  const navigate = useNavigate();
+
+  // Handle clicking the checkbox (Marks as solved/unsolved)
   const handleToggleSolved = async (e, questionId, currentStatus) => {
-    e.stopPropagation(); // Prevent triggering the question detail view if the row is clickable
-
-    // 1. Optimistic Update: Update UI immediately for better UX
+    e.stopPropagation(); // Prevents the row click event from firing
+    
+    // 1. Optimistic Update
     const originalQuestions = [...questions];
     const updatedQuestions = questions.map(q => 
       (q.id === questionId) ? { ...q, solved: !currentStatus } : q
@@ -32,16 +35,18 @@ const QuestionList = ({ questions, setQuestions, loading, error }) => { // Accep
       if (!response.ok) {
         throw new Error("Failed to update");
       }
-      
-      // Optional: You might want to refresh the progress bar here by triggering a reload
-      // or passing a callback from App.js like onProgressUpdate()
 
     } catch (err) {
       console.error("Failed to update status:", err);
-      // 3. Revert on Error: If API fails, switch back to original state
+      // 3. Revert on Error
       setQuestions(originalQuestions);
       alert("Failed to save progress. Please try again.");
     }
+  };
+
+  // Handle clicking the row (Navigates to solution page)
+  const handleRowClick = (questionId) => {
+    navigate(`/problem/${questionId}`);
   };
 
   if (loading) {
@@ -69,14 +74,19 @@ const QuestionList = ({ questions, setQuestions, loading, error }) => { // Accep
           <div style={{ color: '#94a3b8', textAlign: 'center' }}>No questions found.</div>
         ) : (
           questions.map((q, index) => (
-            <div key={q.id || index} className={`question-item ${q.solved ? 'solved' : ''}`}>
+            <div 
+              key={q.id || index} 
+              className={`question-item ${q.solved ? 'solved' : ''}`}
+              onClick={() => handleRowClick(q.id)}
+              style={{ cursor: 'pointer' }}
+            >
               <span className="question-number">#{q.id || index + 1}</span>
               
-              {/* Clickable Checkbox */}
               <div 
                 className="checkbox" 
                 onClick={(e) => handleToggleSolved(e, q.id, q.solved)}
-                style={{ cursor: 'pointer' }}
+                // Cursor pointer is inherited, but explicit prevents confusion
+                style={{ cursor: 'pointer' }} 
               ></div>
 
               <div className="question-content">
