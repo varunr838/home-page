@@ -1,19 +1,41 @@
 // App.js
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
-import ProblemPage from './pages/ProblemsPage'; // Adjust path as needed
-// import './App.css';
+import ProblemPage from './pages/ProblemsPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import ProtectedRoute from './components/ProtectedRoute'; // Import the wrapper
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Route for the main dashboard */}
-        <Route path="/" element={<Dashboard />} />
+        {/* Public Routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+
+        {/* Protected Routes - Only accessible if logged in */}
+        <Route 
+          path="/" 
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
         
-        {/* Route for the specific problem solution */}
-        <Route path="/problem/:problemId" element={<ProblemPage />} />
+        <Route 
+          path="/problem/:problemId" 
+          element={
+            <ProtectedRoute>
+              <ProblemPage />
+            </ProtectedRoute>
+          } 
+        />
+
+        {/* Catch-all: Redirect any unknown path to home (which then checks auth) */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

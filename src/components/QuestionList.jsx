@@ -24,8 +24,8 @@ const QuestionList = ({ questions, setQuestions, loading, error }) => {
         `https://dorie-lunulate-breezily.ngrok-free.dev/user/update-progress?questionId=${questionId}`, 
         {
           method: 'PUT',
+          credentials:'include',
           headers: {
-            'Authorization': `Bearer ${token}`,
             'ngrok-skip-browser-warning': 'true',
             'Content-Type': 'application/json'
           }

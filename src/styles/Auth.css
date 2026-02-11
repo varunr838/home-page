@@ -1,0 +1,288 @@
+/* Auth.css */
+
+.auth-wrapper {
+    --bg-deep: #0A0F1C;
+    --bg-form-side: #080C14;
+    --card-bg: #111827;
+    --accent-orange: #FFB240;
+    --text-white: #FFFFFF;
+    --text-gray: #94A3B8;
+    --input-bg: #0F172A;
+    --input-border: #1E293B;
+    --social-btn-bg: #111827;
+    --social-btn-border: #1E293B;
+
+    background-color: var(--bg-deep);
+    color: var(--text-white);
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+.auth-wrapper .main-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- Left Side (Content) --- */
+.auth-wrapper .content-side {
+    flex: 1.2;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: radial-gradient(circle at 80% 20%, #1e1b4b 0%, #0A0F1C 60%);
+    position: relative;
+}
+
+.auth-wrapper .logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.5px;
+    color: var(--text-white);
+}
+
+.auth-wrapper .logo span { color: var(--accent-orange); }
+
+.auth-wrapper .hero-section, 
+.auth-wrapper .hero-text { margin-top: 20px; }
+
+.auth-wrapper .hero-section h1,
+.auth-wrapper .hero-text h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    color: var(--accent-orange);
+    margin-bottom: 24px;
+    font-weight: 700;
+}
+
+.auth-wrapper .hero-section p,
+.auth-wrapper .hero-text p {
+    color: var(--text-gray);
+    max-width: 460px;
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.auth-wrapper .stats-container,
+.auth-wrapper .stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 40px;
+}
+
+.auth-wrapper .stat-box h2,
+.auth-wrapper .stat-item h2 {
+    font-size: 2.2rem;
+    color: var(--accent-orange);
+    margin-bottom: 4px;
+    text-shadow: 0 0 20px rgba(255, 178, 64, 0.4);
+}
+
+.auth-wrapper .stat-box p,
+.auth-wrapper .stat-item p {
+    color: var(--text-gray);
+    font-size: 0.85rem;
+    text-transform: capitalize;
+}
+
+.auth-wrapper .footer-note,
+.auth-wrapper .footer-text {
+    color: var(--text-gray);
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+/* --- Right Side (Form) --- */
+.auth-wrapper .form-side {
+    flex: 1;
+    background-color: var(--bg-form-side);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.auth-wrapper .auth-card,
+.auth-wrapper .form-card {
+    background-color: var(--card-bg);
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.auth-wrapper .auth-header,
+.auth-wrapper .form-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-wrapper .auth-header h2,
+.auth-wrapper .form-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.auth-wrapper .auth-header p,
+.auth-wrapper .form-header p {
+    color: var(--text-gray);
+    font-size: 0.85rem;
+}
+
+/* Social Buttons */
+.auth-wrapper .social-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.auth-wrapper .btn-social {
+    width: 100%;
+    background: var(--social-btn-bg);
+    border: 1px solid var(--social-btn-border);
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.auth-wrapper .btn-social:hover {
+    background: #1f2937;
+}
+
+.auth-wrapper .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: var(--text-gray);
+    font-size: 0.75rem;
+}
+
+.auth-wrapper .divider::before, .auth-wrapper .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--input-border);
+}
+
+.auth-wrapper .divider:not(:empty)::before { margin-right: 12px; }
+.auth-wrapper .divider:not(:empty)::after { margin-left: 12px; }
+
+/* Form Inputs */
+.auth-wrapper .input-box,
+.auth-wrapper .input-group { margin-bottom: 20px; }
+
+.auth-wrapper .input-box label,
+.auth-wrapper .input-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.auth-wrapper .input-field,
+.auth-wrapper .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.auth-wrapper .input-field svg,
+.auth-wrapper .input-wrapper svg {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    color: var(--text-gray);
+}
+
+.auth-wrapper .input-field input,
+.auth-wrapper .input-wrapper input {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    padding: 12px 12px 12px 40px;
+    color: white;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.auth-wrapper .input-field input:focus,
+.auth-wrapper .input-wrapper input:focus {
+    border-color: var(--accent-orange);
+}
+
+.auth-wrapper .forgot-link {
+    float: right;
+    font-size: 0.75rem;
+    color: var(--accent-orange);
+    text-decoration: none;
+    margin-bottom: 4px;
+}
+
+.auth-wrapper .btn-submit,
+.auth-wrapper .btn-primary {
+    width: 100%;
+    background-color: var(--accent-orange);
+    color: #000;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.auth-wrapper .card-footer,
+.auth-wrapper .form-footer {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.auth-wrapper .card-footer p,
+.auth-wrapper .form-footer p {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+}
+
+.auth-wrapper .card-footer a,
+.auth-wrapper .form-footer a {
+    color: var(--accent-orange);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-wrapper .legal,
+.auth-wrapper .terms {
+    margin-top: 24px;
+    font-size: 0.7rem !important;
+    line-height: 1.5;
+    color: var(--text-gray);
+    opacity: 0.8;
+}
+
+/* Responsive Fixes */
+@media (max-width: 1024px) {
+    .auth-wrapper .main-container { flex-direction: column; }
+    .auth-wrapper .content-side { padding: 40px; }
+    .auth-wrapper .hero-section h1,
+    .auth-wrapper .hero-text h1 { font-size: 2.8rem; }
+}

@@ -19,8 +19,8 @@ const ProgressSection = () => {
 
         const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/user/get-progress", {
           method: 'GET',
+          credentials:'include',
           headers: {
-            'Authorization': `Bearer ${token}`,
             'ngrok-skip-browser-warning': 'true',
             'Content-Type': 'application/json'
           }

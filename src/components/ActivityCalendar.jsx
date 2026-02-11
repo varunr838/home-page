@@ -32,9 +32,11 @@ const ActivityCalendar = () => {
         const response = await fetch(
           `https://dorie-lunulate-breezily.ngrok-free.dev/activity/daily?start=${startDate}&end=${endDate}`, 
           {
+            method:'GET',
+            credentials:'include',
             headers: {
-              'Authorization': `Bearer ${token}`,
               'ngrok-skip-browser-warning': 'true',
+              'Content-Type': 'application/json'
             }
           }
         );

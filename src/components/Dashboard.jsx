@@ -21,8 +21,8 @@ const Dashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const token = localStorage.getItem('authToken');
-      if (!token) throw new Error("No authentication token found.");
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      if (!isLoggedIn) throw new Error("No authentication token found.");
 
       // Construct URL parameters dynamically
       const params = new URLSearchParams({
@@ -40,8 +40,9 @@ const Dashboard = () => {
       const baseUrl = "https://dorie-lunulate-breezily.ngrok-free.dev/question/search";
       
       const response = await fetch(`${baseUrl}?${params.toString()}`, {
+        method:'GET',
+        credentials:'include',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'ngrok-skip-browser-warning': 'true',
           'Content-Type': 'application/json'
         }
