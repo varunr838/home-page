@@ -8,9 +8,11 @@ const LoginPage = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
     // Inside LoginPage.jsx
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            navigate('/'); // Go to dashboard if already authenticated
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn === 'true') {
+            // ONLY navigate if we are sure we are logged in.
+            // Use replace: true to prevent the user from going "back" into the loop
+            navigate('/', { replace: true });
         }
     }, [navigate]);
 
@@ -42,6 +44,10 @@ const LoginPage = () => {
         console.error("Login error:", error);
     }
 };
+const handleGoogleLogin = () => {
+        // Redirect the entire window to the backend's OAuth entry point
+        window.location.href = "http://localhost:8080/oauth2/authorization/google";
+};
 
     return (
         <div className="auth-wrapper">
@@ -67,7 +73,7 @@ const LoginPage = () => {
                         </div>
                         <div className="social-group">
                             <button className="btn-social"><Github size={18}/> Continue with GitHub</button>
-                            <button className="btn-social"><Chrome size={18}/> Continue with Google</button>
+                            <button className="btn-social" onClick={handleGoogleLogin} ><Chrome size={18}/> Continue with Google</button>
                         </div>
                         <div className="divider">or</div>
                         <form onSubmit={handleLogin}>

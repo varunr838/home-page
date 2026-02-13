@@ -16,7 +16,7 @@ const SignupPage = () => {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/auth/signup", {
+            const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/auth/sign-up", {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json",
@@ -26,10 +26,11 @@ const SignupPage = () => {
             });
 
             const data = await response.json();
+            console.log(data);
 
             if (response.ok) {
                 // Navigate to OTP page and pass the verificationID in the state
-                navigate('/verify-otp', { state: { verificationId: data.verificationID, email: formData.email } });
+                navigate('/verify-otp', { state: { verificationId: data.verificationId, email: formData.email } });
             } else {
                 alert(data.message || "Signup failed. Please try again.");
             }

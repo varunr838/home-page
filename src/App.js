@@ -5,7 +5,8 @@ import Dashboard from './components/Dashboard';
 import ProblemPage from './pages/ProblemsPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import ProtectedRoute from './components/ProtectedRoute'; // Import the wrapper
+import ProtectedRoute from './components/ProtectedRoute'; 
+import VerifyOtpPage from './pages/VerifyOtpPage';// Import the wrapper
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         {/* Public Routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/verify-otp" element={<VerifyOtpPage />} />
 
         {/* Protected Routes - Only accessible if logged in */}
         <Route 
