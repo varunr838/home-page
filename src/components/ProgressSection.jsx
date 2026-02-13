@@ -14,8 +14,8 @@ const ProgressSection = () => {
   useEffect(() => {
     const fetchProgress = async () => {
       try {
-        const token = localStorage.getItem('authToken');
-        if (!token) return;
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn !== 'true') return;
 
         const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/user/get-progress", {
           method: 'GET',

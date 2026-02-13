@@ -16,8 +16,8 @@ const QuestionList = ({ questions, setQuestions, loading, error }) => {
     setQuestions(updatedQuestions);
 
     try {
-      const token = localStorage.getItem('authToken');
-      if (!token) throw new Error("No token");
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      if (!isLoggedIn) throw new Error("No token");
 
       // 2. Send PUT Request
       const response = await fetch(

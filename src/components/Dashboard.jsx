@@ -34,9 +34,6 @@ const Dashboard = () => {
       if (selectedDifficulty !== 'All') params.append('difficulty', selectedDifficulty.toLowerCase()); // assuming API expects lowercase
       if (selectedTopics.length > 0) params.append('tags', selectedTopics.join(','));
 
-      // Decide which endpoint to hit
-      // If no filters are active, you might want to hit the default /get endpoint, 
-      // but if your /search endpoint handles empty params, just use that.
       const baseUrl = "https://dorie-lunulate-breezily.ngrok-free.dev/question/search";
       
       const response = await fetch(`${baseUrl}?${params.toString()}`, {
