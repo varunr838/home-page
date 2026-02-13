@@ -32,9 +32,14 @@ const LoginPage = () => {
                 password: formData.password
             })
         });
-
+        const data = await response.json();
         if (response.ok) {
             // Even if the tokens are in cookies, we set a flag for our ProtectedRoute
+            if(data.status == 'EMAIL_NOT_VERIFIED'){
+                alert("Please verify your emailID");
+                navigate('/verify-otp', { state: { verificationId: data.verificationId, email: formData.email} });
+                return;            
+            }
             localStorage.setItem('isLoggedIn', 'true');
             navigate('/');
         } else {

@@ -30,6 +30,9 @@ const SignupPage = () => {
 
             if (response.ok) {
                 // Navigate to OTP page and pass the verificationID in the state
+                if(data.status == 'EMAIL_NOT_VERIFIED'){
+                    alert(data.message);        
+                }
                 navigate('/verify-otp', { state: { verificationId: data.verificationId, email: formData.email } });
             } else {
                 alert(data.message || "Signup failed. Please try again.");
