@@ -6,7 +6,8 @@ import ProblemPage from './pages/ProblemsPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import ProtectedRoute from './components/ProtectedRoute'; 
-import VerifyOtpPage from './pages/VerifyOtpPage';// Import the wrapper
+import VerifyOtpPage from './pages/VerifyOtpPage';
+import LoadingPage from './pages/LoadingPage';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/verify-otp" element={<VerifyOtpPage />} />
+        <Route path="/auth-callback" element={<LoadingPage />} />
 
         {/* Protected Routes - Only accessible if logged in */}
         <Route 

@@ -46,7 +46,7 @@ const LoginPage = () => {
 };
 const handleGoogleLogin = () => {
         // Redirect the entire window to the backend's OAuth entry point
-        window.location.href = "http://localhost:8080/oauth2/authorization/google";
+        window.location.href = "https://dorie-lunulate-breezily.ngrok-free.dev/oauth2/authorization/google";
 };
 
     return (
