@@ -21,8 +21,8 @@ const ActivityCalendar = () => {
     const fetchActivity = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem('authToken');
-        if (!token) return;
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+      if (!isLoggedIn) throw new Error("No authentication token found.");
 
         // Calculate start and end of the selected month
         const startDate = formatDateString(currentYear, currentMonthIndex, 1);
