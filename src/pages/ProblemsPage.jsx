@@ -24,12 +24,12 @@ const ProblemPage = () => {
   useEffect(() => {
     const fetchSolution = async () => {
       try {
-        const token = localStorage.getItem('authToken');
-        if (!token) throw new Error("Please log in.");
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn !== 'true') throw new Error("Please log in.");
 
         const response = await fetch(`https://dorie-lunulate-breezily.ngrok-free.dev/question/${problemId}`, {
+          credentials:'include',
           headers: {
-            'Authorization': `Bearer ${token}`,
             'ngrok-skip-browser-warning': 'true',
           }
         });
