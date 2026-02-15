@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiFetch } from '../utils/api';
 
 const StreakCard = () => {
   const [streak, setStreak] = useState(0);
@@ -8,14 +9,7 @@ const StreakCard = () => {
     const fetchStreak = async () => {
       try {
         // Using credentials: 'include' as per your cookie-based auth setup
-        const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/user/get-streak", {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'ngrok-skip-browser-warning': 'true',
-            'Content-Type': 'application/json'
-          }
-        });
+        const response = await apiFetch("/user/get-streak");
 
         if (response.ok) {
           const data = await response.json();

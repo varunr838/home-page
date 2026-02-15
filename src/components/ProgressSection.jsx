@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiFetch } from '../utils/api';
 
 const ProgressSection = () => {
   const [stats, setStats] = useState({
@@ -17,14 +18,7 @@ const ProgressSection = () => {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         if (isLoggedIn !== 'true') return;
 
-        const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/user/get-progress", {
-          method: 'GET',
-          credentials:'include',
-          headers: {
-            'ngrok-skip-browser-warning': 'true',
-            'Content-Type': 'application/json'
-          }
-        });
+        const response = await apiFetch("/user/get-progress");
 
         if (response.ok) {
           const data = await response.json();

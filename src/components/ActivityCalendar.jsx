@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiFetch } from '../utils/api';
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 
                 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -29,20 +30,11 @@ const ActivityCalendar = () => {
         const lastDayOfMonth = new Date(currentYear, currentMonthIndex + 1, 0).getDate();
         const endDate = formatDateString(currentYear, currentMonthIndex, lastDayOfMonth);
 
-        const response = await fetch(
-          `https://dorie-lunulate-breezily.ngrok-free.dev/activity/daily?start=${startDate}&end=${endDate}`, 
-          {
-            method:'GET',
-            credentials:'include',
-            headers: {
-              'ngrok-skip-browser-warning': 'true',
-              'Content-Type': 'application/json'
-            }
-          }
-        );
+        const response = await apiFetch(`/activity/daily?start=${startDate}&end=${endDate}`);
 
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           // Transform array [{ date: "2026-01-10", count: 3 }] 
           // into object { "2026-01-10": 3 } for O(1) lookup
           const dataMap = {};

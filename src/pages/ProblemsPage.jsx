@@ -8,6 +8,7 @@ import ProblemHeader from '../components/solution/ProblemHeader';
 import CodeDisplay from '../components/solution/CodeDisplay';
 import Visualizer from '../components/visualization/Visualizer';
 import Sidebar from '../components/layout/Sidebar'; // Assuming this is the solution-specific sidebar
+import { apiFetch } from '../utils/api';
 
 // Helper to safely parse the "stringified JSON" from your backend
 const safeParse = (str) => {
@@ -27,12 +28,7 @@ const ProblemPage = () => {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         if (isLoggedIn !== 'true') throw new Error("Please log in.");
 
-        const response = await fetch(`https://dorie-lunulate-breezily.ngrok-free.dev/question/${problemId}`, {
-          credentials:'include',
-          headers: {
-            'ngrok-skip-browser-warning': 'true',
-          }
-        });
+        const response = await apiFetch(`/question/${problemId}`);
 
         if (!response.ok) throw new Error("Failed to load problem");
         

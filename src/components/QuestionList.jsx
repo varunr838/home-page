@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch } from '../utils/api';
 
 const QuestionList = ({ questions, setQuestions, loading, error }) => { 
   const navigate = useNavigate();
@@ -20,17 +21,7 @@ const QuestionList = ({ questions, setQuestions, loading, error }) => {
       if (!isLoggedIn) throw new Error("No token");
 
       // 2. Send PUT Request
-      const response = await fetch(
-        `https://dorie-lunulate-breezily.ngrok-free.dev/user/update-progress?questionId=${questionId}`, 
-        {
-          method: 'PUT',
-          credentials:'include',
-          headers: {
-            'ngrok-skip-browser-warning': 'true',
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+      const response = await apiFetch(`/user/update-progress?questionId=${questionId}`,{method:"PUT"});
 
       if (!response.ok) {
         throw new Error("Failed to update");

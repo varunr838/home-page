@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 import ProgressSection from './ProgressSection';
 import QuestionList from './QuestionList';
 import RightSidebar from './RightSidebar';
+import { apiFetch } from '../utils/api';
 const Dashboard = () => {
   // State for filters and search
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,14 +37,7 @@ const Dashboard = () => {
 
       const baseUrl = "https://dorie-lunulate-breezily.ngrok-free.dev/question/search";
       
-      const response = await fetch(`${baseUrl}?${params.toString()}`, {
-        method:'GET',
-        credentials:'include',
-        headers: {
-          'ngrok-skip-browser-warning': 'true',
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await apiFetch(`${baseUrl}?${params.toString()}`);
 
       if (!response.ok) throw new Error("Failed to fetch questions");
 
