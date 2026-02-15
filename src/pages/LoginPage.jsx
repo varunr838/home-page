@@ -124,6 +124,12 @@ const LoginPage = () => {
                             
                             <div className="input-box">
                                 {/* Added Forgot Password Link */}
+                                
+                                <div className="input-field">
+                                    <Lock size={18}/><input type="password" placeholder="Password" required
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({...formData, password: e.target.value})}/>
+                                </div>
                                 <button 
                                     type="button" 
                                     onClick={handleForgotPassword} 
@@ -132,12 +138,6 @@ const LoginPage = () => {
                                 >
                                     Forgot password?
                                 </button>
-                                
-                                <div className="input-field">
-                                    <Lock size={18}/><input type="password" placeholder="Password" required
-                                    value={formData.password}
-                                    onChange={(e) => setFormData({...formData, password: e.target.value})}/>
-                                </div>
                             </div>
 
                             <button type="submit" className="btn-submit" disabled={loading}>

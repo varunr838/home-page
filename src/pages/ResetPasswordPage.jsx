@@ -35,7 +35,7 @@ const ResetPasswordPage = () => {
                 },
                 body: JSON.stringify({
                     verificationId: verificationId,
-                    password: passwords.newPassword
+                    newPassword: passwords.newPassword
                 })
             });
 
