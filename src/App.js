@@ -8,6 +8,8 @@ import SignupPage from './pages/SignupPage';
 import ProtectedRoute from './components/ProtectedRoute'; 
 import VerifyOtpPage from './pages/VerifyOtpPage';
 import LoadingPage from './pages/LoadingPage';
+import ProfilePage from './pages/ProfilePage';
+import EditProfilePage from './pages/EditProfilePage';
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/verify-otp" element={<VerifyOtpPage />} />
         <Route path="/auth-callback" element={<LoadingPage />} />
+        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+        <Route path="/profile/edit" element={<ProtectedRoute><EditProfilePage /></ProtectedRoute>} />
 
         {/* Protected Routes - Only accessible if logged in */}
         <Route 
