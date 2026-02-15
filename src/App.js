@@ -10,6 +10,7 @@ import VerifyOtpPage from './pages/VerifyOtpPage';
 import LoadingPage from './pages/LoadingPage';
 import ProfilePage from './pages/ProfilePage';
 import EditProfilePage from './pages/EditProfilePage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/auth-callback" element={<LoadingPage />} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
         <Route path="/profile/edit" element={<ProtectedRoute><EditProfilePage /></ProtectedRoute>} />
+        <Route path="/reset/password" element={<ResetPasswordPage />} />
 
         {/* Protected Routes - Only accessible if logged in */}
         <Route 

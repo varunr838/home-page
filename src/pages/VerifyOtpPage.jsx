@@ -10,10 +10,43 @@ const VerifyOtpPage = () => {
     const [loading, setLoading] = useState(false);
 
     // Get the ID passed from the Signup page
-    const verificationId = location.state?.verificationId;
-    console.log(verificationId);
+    const [verificationId,setVerificationId] = useState(location.state?.verificationId);
     const email = location.state?.email;
 
+    const handleResend = async (e) => {
+        e.preventDefault();
+        if (!verificationId) {
+            alert("Session expired. Please sign up again.");
+            return navigate('/signup');
+        }
+        try {
+            const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/auth/resend-otp", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "true" 
+                },
+                // Include credentials if the server sets auth cookies here
+                credentials: 'include', 
+                body: JSON.stringify({
+                    verificationId: verificationId,
+                    email: email
+                })
+            });
+            const data = await response.json();
+            console.log(data.verificationId);
+            if (response.ok) {
+                // If the backend doesn't return a token in JSON but sets cookies:
+                // localStorage.setItem('isLoggedIn', 'true');
+                setVerificationId(data.verificationId);
+                alert('Otp resent, please check your inbox')
+            } else {
+                alert("Error.");
+            }
+        } catch (error) {
+            console.error("OTP Error:", error);
+        }
+    }
     const handleVerify = async (e) => {
         e.preventDefault();
         if (!verificationId) {
@@ -79,7 +112,7 @@ const VerifyOtpPage = () => {
                     </form>
 
                     <div className="card-footer">
-                        <p>Didn't receive code? <button className="forgot-link" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>Resend</button></p>
+                        <p>Didn't receive code? <button className="forgot-link" style={{ background: 'none', border: 'none', cursor: 'pointer' } } onClick = {handleResend} >Resend</button></p>
                     </div>
                 </div>
             </div>

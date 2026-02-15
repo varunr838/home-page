@@ -1,58 +1,91 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, Eye, Github, Chrome } from 'lucide-react';
+import { Mail, Lock, Github, Chrome } from 'lucide-react';
 import '../styles/Auth.css';
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ email: '', password: '' });
-    // Inside LoginPage.jsx
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         if (isLoggedIn === 'true') {
-            // ONLY navigate if we are sure we are logged in.
-            // Use replace: true to prevent the user from going "back" into the loop
             navigate('/', { replace: true });
         }
     }, [navigate]);
 
     const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/auth/login", {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-                "ngrok-skip-browser-warning": "true" 
-            },
-            // The browser will automatically save ACCESS_TOKEN and REFRESH_TOKEN
-            credentials: 'include', 
-            body: JSON.stringify({
-                email: formData.email,
-                password: formData.password
-            })
-        });
-        const data = await response.json();
-        if (response.ok) {
-            // Even if the tokens are in cookies, we set a flag for our ProtectedRoute
-            if(data.status == 'EMAIL_NOT_VERIFIED'){
-                alert("Please verify your emailID");
-                navigate('/verify-otp', { state: { verificationId: data.verificationId, email: formData.email} });
-                return;            
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/auth/login", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "true" 
+                },
+                credentials: 'include', 
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password
+                })
+            });
+            const data = await response.json();
+            
+            if (response.ok) {
+                if(data.status === 'EMAIL_NOT_VERIFIED'){
+                    alert("Please verify your email ID");
+                    navigate('/verify-otp', { state: { verificationId: data.verificationId, email: formData.email} });
+                    return;            
+                }
+                localStorage.setItem('isLoggedIn', 'true');
+                navigate('/');
+            } else {
+                alert(data.message || "Invalid email or password");
             }
-            localStorage.setItem('isLoggedIn', 'true');
-            navigate('/');
-        } else {
-            alert("Invalid email or password");
+        } catch (error) {
+            console.error("Login error:", error);
+            alert("Unable to connect to server");
+        } finally {
+            setLoading(false);
         }
-    } catch (error) {
-        console.error("Login error:", error);
-    }
-};
-const handleGoogleLogin = () => {
-        // Redirect the entire window to the backend's OAuth entry point
+    };
+
+    const handleGoogleLogin = () => {
         window.location.href = "https://dorie-lunulate-breezily.ngrok-free.dev/oauth2/authorization/google";
-};
+    };
+
+    // --- New Forgot Password Logic ---
+    const handleForgotPassword = async (e) => {
+        e.preventDefault(); // Prevent form submission if button is inside form
+        
+        if (!formData.email) {
+            alert("Please enter your email address in the field above to reset your password.");
+            return;
+        }
+
+        try {
+            const response = await fetch("https://dorie-lunulate-breezily.ngrok-free.dev/auth/forgot-password", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "true" 
+                },
+                body: JSON.stringify({ email: formData.email })
+            });
+
+            if (response.ok) {
+                alert(`Password reset link sent to ${formData.email}. Please check your inbox.`);
+            } else {
+                const data = await response.json();
+                alert(data.message || "Failed to send reset link.");
+            }
+        } catch (error) {
+            console.error("Forgot Password error:", error);
+            alert("Error sending request.");
+        }
+    };
 
     return (
         <div className="auth-wrapper">
@@ -81,17 +114,37 @@ const handleGoogleLogin = () => {
                             <button className="btn-social" onClick={handleGoogleLogin} ><Chrome size={18}/> Continue with Google</button>
                         </div>
                         <div className="divider">or</div>
+                        
                         <form onSubmit={handleLogin}>
                             <div className="input-field">
                                 <Mail size={18}/><input type="email" placeholder="you@example.com" required 
+                                value={formData.email}
                                 onChange={(e) => setFormData({...formData, email: e.target.value})}/>
                             </div>
-                            <div className="input-field">
-                                <Lock size={18}/><input type="password" placeholder="••••••••" required
-                                onChange={(e) => setFormData({...formData, password: e.target.value})}/>
+                            
+                            <div className="input-box">
+                                {/* Added Forgot Password Link */}
+                                <button 
+                                    type="button" 
+                                    onClick={handleForgotPassword} 
+                                    className="forgot-link"
+                                    style={{ background: 'none', border: 'none', cursor: 'pointer', float: 'right', padding: 0 }}
+                                >
+                                    Forgot password?
+                                </button>
+                                
+                                <div className="input-field">
+                                    <Lock size={18}/><input type="password" placeholder="Password" required
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({...formData, password: e.target.value})}/>
+                                </div>
                             </div>
-                            <button type="submit" className="btn-submit">SIGN IN</button>
+
+                            <button type="submit" className="btn-submit" disabled={loading}>
+                                {loading ? "SIGNING IN..." : "SIGN IN"}
+                            </button>
                         </form>
+                        
                         <div className="card-footer">
                             <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
                         </div>
