@@ -62,7 +62,7 @@ const ProblemPage = () => {
 
   return (
     <>
-      <div className="solution-wrapper light-mode">
+      <div className="solution-wrapper dark-mode">
       <Navbar />
       <div className="page-container">
         <main className="main-content">

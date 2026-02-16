@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [isDark, setIsDark] = React.useState(
         localStorage.getItem('theme') === 'dark-mode'
     );
@@ -22,20 +24,20 @@ const Navbar = () => {
         <header className="main-header">
             <div className="header-container">
                 <div className="logo">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <rect width="32" height="32" rx="6" fill="#3B82F6"/>
                         <path d="M8 16L14 22L24 10" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    </svg> */}
                     <span className="logo-text">CodeLeat</span>
                 </div>
                 <nav className="main-nav">
                     <a href="/" className="nav-link">Problems</a>
-                    <a href="#" className="nav-link">Visualize</a>
-                    <a href="#" className="nav-link active">Learn</a>
+                    {/* <a href="#" className="nav-link">Visualize</a> */}
+                    {/* <a href="#" className="nav-link active">Learn</a> */}
                     <a href="#" className="nav-link">Discussions</a>
                 </nav>
                 <div className="header-actions">
-                    <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+                    {/* <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
                         {isDark ? (
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -46,8 +48,8 @@ const Navbar = () => {
                                 <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
                             </svg>
                         )}
-                    </button>
-                    <button className="profile-btn">
+                    </button> */}
+                    <button className="profile-btn" onClick={() => navigate("/profile")}>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                         </svg>
