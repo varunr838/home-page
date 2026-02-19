@@ -7,15 +7,18 @@ const BASE_URL = "https://dorie-lunulate-breezily.ngrok-free.dev";
  * Use this instead of fetch() for all protected endpoints.
  */
 export const apiFetch = async (endpoint, options = {}) => {
-  // 1. Prepare default options (cookies, headers)
+  // Check if we are sending a file (FormData)
+  const isFormData = options.body instanceof FormData;
+
   const defaultHeaders = {
-    'Content-Type': 'application/json',
     'ngrok-skip-browser-warning': 'true',
+    // Only add JSON header if NOT sending a file
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
   };
 
   const config = {
     ...options,
-    credentials: 'include', // Always send cookies (Access/Refresh tokens)
+    credentials: 'include',
     headers: {
       ...defaultHeaders,
       ...options.headers,
