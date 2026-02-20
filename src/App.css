@@ -513,3 +513,50 @@
   .dashboard-wrapper .sidebar { position: relative; top: 0; }
   .dashboard-wrapper .question-content { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 }
+
+.dashboard-wrapper .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 5px;
+  background: rgba(15, 22, 41, 0.95);
+  border: 1px solid rgba(88, 166, 255, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  min-width: 150px;
+  padding: 0.5rem 0;
+  z-index: 1000;
+  animation: slideDown 0.2s ease-out forwards;
+}
+
+.dashboard-wrapper .dropdown-item {
+  padding: 0.75rem 1.2rem;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.dashboard-wrapper .dropdown-item:hover {
+  background: rgba(88, 166, 255, 0.1);
+  color: #58a6ff;
+}
+
+.dashboard-wrapper .dropdown-item.text-danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
