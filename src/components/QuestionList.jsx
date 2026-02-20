@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiFetch } from '../utils/api';
 
-const QuestionList = ({ questions, setQuestions, loading, error }) => { 
+const QuestionList = ({ questions, setQuestions, loading, error, onUpdate }) => { 
   const navigate = useNavigate();
 
   // Handle clicking the checkbox (Marks as solved/unsolved)
@@ -26,6 +26,7 @@ const QuestionList = ({ questions, setQuestions, loading, error }) => {
       if (!response.ok) {
         throw new Error("Failed to update");
       }
+      if (onUpdate) onUpdate();
 
     } catch (err) {
       console.error("Failed to update status:", err);

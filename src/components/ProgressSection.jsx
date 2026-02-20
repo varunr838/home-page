@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiFetch } from '../utils/api';
 
-const ProgressSection = () => {
+const ProgressSection = ({ refreshTrigger }) => {
   const [stats, setStats] = useState({
     easySolved: 0,
     mediumSolved: 0,
@@ -37,7 +37,7 @@ const ProgressSection = () => {
     };
 
     fetchProgress();
-  }, []);
+  }, [refreshTrigger]);
 
   // Calculate percentage for the progress bar width (capped at 100%)
   const progressPercentage = Math.min(

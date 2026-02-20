@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
   const [selectedTopics, setSelectedTopics] = useState([]);
-  
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
   // State for fetched questions
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -51,6 +51,10 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+  const handleQuestionUpdate = () => {
+    // Incrementing this value will trigger useEffects in child components
+    setRefreshTrigger(prev => prev + 1);
+  };
 
   // Debounce the fetch when typing
   useEffect(() => {
@@ -77,17 +81,18 @@ const Dashboard = () => {
           />
           
           <div className="content-area">
-            <ProgressSection />
+            <ProgressSection refreshTrigger={refreshTrigger}/>
             {/* Pass the fetched data down to QuestionList */}
             <QuestionList 
               questions={questions}
               setQuestions={setQuestions} 
               loading={loading} 
-              error={error} 
+              error={error}
+              onUpdate={handleQuestionUpdate} 
             />
           </div>
 
-          <RightSidebar />
+          <RightSidebar refreshTrigger={refreshTrigger}/>
         </div>
       </div>
     </div>

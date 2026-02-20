@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiFetch } from '../utils/api'; // Import your API utility
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [profile, setProfile] = useState({
+          firstName: '', lastName: '', username: '', bio: '', profilePhotoUrl: null
+  });
+  useEffect(() => {
+          const fetchAllData = async () => {
+              try {
+                  // 1. Fetch Profile
+                  const profileRes = await apiFetch('/user/get-profile');
+                  if (profileRes.ok) setProfile(await profileRes.json());
+  
+              } catch (error) {
+                  console.error("Error fetching profile data:", error);
+              } 
+          };
+  
+          fetchAllData();
+    }, []);
 
   const handleLogout = async () => {
     try {
@@ -40,7 +57,12 @@ const Navbar = () => {
         style={{ position: 'relative', paddingBottom: '10px', marginBottom: '-10px' }} // Padding ensures hover doesn't break when moving mouse to dropdown
       >
         <div className="profile-icon" onClick={() => navigate('/profile')}>
-          U
+          {profile.profilePhotoUrl ? 
+              <img src={profile.profilePhotoUrl} alt="Profile" style={{width:'100%', height:'100%', borderRadius:'50%', objectFit:'cover'}}/> 
+              : 
+              // Initials if no photo
+              (profile.firstName?.[0] || 'U') + (profile.lastName?.[0] || '')
+          }
         </div>
 
         {/* Dropdown Menu */}

@@ -4,7 +4,7 @@ import { apiFetch } from '../utils/api';
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 
                 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const ActivityCalendar = () => {
+const ActivityCalendar = ({ refreshTrigger }) => {
   // 1. Initialize with the CURRENT date, not hardcoded 2026
   const [currentMonthIndex, setCurrentMonthIndex] = useState(new Date().getMonth()); 
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -52,7 +52,7 @@ const ActivityCalendar = () => {
     };
 
     fetchActivity();
-  }, [currentMonthIndex, currentYear]);
+  }, [currentMonthIndex, currentYear,refreshTrigger]);
 
   const changeMonth = (direction) => {
     let newIndex = currentMonthIndex + direction;

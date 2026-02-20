@@ -110,7 +110,6 @@ const LoginPage = () => {
                             <p>Sign in to continue your coding journey</p>
                         </div>
                         <div className="social-group">
-                            <button className="btn-social"><Github size={18}/> Continue with GitHub</button>
                             <button className="btn-social" onClick={handleGoogleLogin} ><Chrome size={18}/> Continue with Google</button>
                         </div>
                         <div className="divider">or</div>

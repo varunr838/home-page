@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiFetch } from '../utils/api';
 
-const StreakCard = () => {
+const StreakCard = ({ refreshTrigger }) => {
   const [streak, setStreak] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +25,7 @@ const StreakCard = () => {
     };
 
     fetchStreak();
-  }, []);
+  }, [refreshTrigger]);
 
   return (
     <div className="card-base streak-card">
