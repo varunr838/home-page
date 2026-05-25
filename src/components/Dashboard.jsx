@@ -12,6 +12,8 @@ const Dashboard = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   // State for fetched questions
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -27,7 +29,7 @@ const Dashboard = () => {
 
       // Construct URL parameters dynamically
       const params = new URLSearchParams({
-        page: 0,
+        page: currentPage,
         size: 10
       });
 
@@ -44,6 +46,7 @@ const Dashboard = () => {
       const data = await response.json();
       // Handle the nested structure: data.content
       setQuestions(data.content || []);
+      setTotalPages(data.totalPages || 0);
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -51,6 +54,9 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [searchQuery, selectedDifficulty, selectedTopics]);
   const handleQuestionUpdate = () => {
     // Incrementing this value will trigger useEffects in child components
     setRefreshTrigger(prev => prev + 1);
@@ -63,7 +69,7 @@ const Dashboard = () => {
     }, 500); // Wait 500ms after user stops typing
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchQuery, selectedDifficulty, selectedTopics]);
+  }, [searchQuery, selectedDifficulty, selectedTopics, currentPage, refreshTrigger]);
 
   return (
     <div className="dashboard-wrapper">
@@ -88,7 +94,10 @@ const Dashboard = () => {
               setQuestions={setQuestions} 
               loading={loading} 
               error={error}
-              onUpdate={handleQuestionUpdate} 
+              onUpdate={handleQuestionUpdate}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={(newPage) => setCurrentPage(newPage)} 
             />
           </div>
 

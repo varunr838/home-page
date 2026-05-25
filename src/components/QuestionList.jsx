@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiFetch } from '../utils/api';
 
-const QuestionList = ({ questions, setQuestions, loading, error, onUpdate }) => { 
+const QuestionList = ({ questions, setQuestions, loading, error, onUpdate,currentPage, totalPages, onPageChange }) => { 
   const navigate = useNavigate();
 
   // Handle clicking the checkbox (Marks as solved/unsolved)
@@ -100,6 +100,29 @@ const QuestionList = ({ questions, setQuestions, loading, error, onUpdate }) => 
           ))
         )}
       </div>
+      {totalPages > 0 && (
+        <div className="pagination-container">
+          <button 
+            className="pagination-btn" 
+            disabled={currentPage === 0} 
+            onClick={() => onPageChange(currentPage - 1)}
+          >
+            Previous
+          </button>
+          
+          <span className="pagination-info">
+            Page {currentPage + 1} of {totalPages}
+          </span>
+          
+          <button 
+            className="pagination-btn" 
+            disabled={currentPage >= totalPages - 1} 
+            onClick={() => onPageChange(currentPage + 1)}
+          >
+            Next
+          </button>
+        </div>
+      )}      
     </div>
   );
 };
